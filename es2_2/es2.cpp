@@ -94,6 +94,6 @@ int main() {
 	pthread_mutex_destroy(&data.m);
 	pthread_cond_destroy(&data.condition);
 
-	printf("\nFINISHED!:\n");
+	printf("\nFINISHED! :) \n");
 	return 0;
 }
