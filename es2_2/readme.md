@@ -1,38 +1,23 @@
-\# Esercizio 2.1
+## Esercizio 2.2
 
+Variante dell’esercizio 2.1.
 
+I visitatori possono accedere al parco **a gruppi**.  
+Ogni gruppo può essere composto al massimo da **5 persone**.
 
-Si consideri un parco a tema al quale i visitatori possono accedere singolarmente.  
+Il parco ha una capacità limitata pari a **MaxP**: pertanto non può accogliere più di **MaxP persone contemporaneamente**.
 
-Il parco ha una capacità limitata pari a \*\*MaxP\*\*: pertanto non può accogliere più di \*\*MaxP\*\* persone contemporaneamente.
+Il parco è molto esteso e non può essere visitato a piedi; per la visita del parco sono disponibili **MaxA auto elettriche**, destinate al trasporto di gruppi di **1–5 persone**.
 
+### Specifiche del comportamento
 
+Ogni gruppo:
+1. richiede l’accesso al parco alla biglietteria, acquisendo contestualmente l’auto;
+2. visita il parco per un tempo arbitrario;
+3. esce dal parco, restituendo l’auto usata per la visita.
 
-Il parco è molto esteso e non può essere visitato a piedi; pertanto per la visita del parco ogni visitatore utilizzerà un veicolo messo a disposizione dal parco.  
+### Obiettivo
 
-In particolare vengono offerti 2 tipi di veicoli:
+Realizzare un’applicazione concorrente in **C/pthread**, nella quale **ogni gruppo sia rappresentato da un thread distinto** e la sincronizzazione venga ottenuta tramite **semafori POSIX**.
 
-\- \*\*biciclette\*\* (numero totale = \*\*MaxB\*\*)  
-
-\- \*\*monopattini elettrici\*\* (numero totale = \*\*MaxM\*\*)
-
-
-
-Ogni visitatore:
-
-1\. richiede l’accesso al parco alla biglietteria, acquisendo contestualmente un veicolo a sua scelta (bici o monopattino);
-
-2\. visita il parco per un tempo arbitrario;
-
-3\. esce dal parco, restituendo il veicolo usato per la visita.
-
-
-
----
-
-
-
-\## Obiettivo
-
-Realizzare un’applicazione concorrente in \*\*C/pthread\*\*, nella quale ogni visitatore sia rappresentato da un thread distinto e la sincronizzazione venga ottenuta tramite \*\*semafori POSIX\*\*.
-
+L’applicazione deve garantire che **l’ordine di ingresso al parco rispetti l’ordine cronologico di arrivo alla biglietteria**.
