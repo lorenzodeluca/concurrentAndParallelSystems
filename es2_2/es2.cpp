@@ -5,19 +5,19 @@
 #include <math.h>
 #include <stdint.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
-#define N 3
-#define MaxP 1 // maximum number of people that can stay inside the park
-#define MaxB 1  // number of bicycles
-#define MaxM 1  // number of scooters
-#define V sem_wait
-#define P sem_post
+#define N 3 // groups arriving at the park
+#define MaxP 5 // maximum number of people that can stay inside the park
+#define MaxC 2  // number of cars
 
 typedef struct {
 	int free_spots;
-	int free_bikes;
-	sem_t S; // condition semaphore
-	int free_scooters;
+	int free_cars;
+	int order_arrival;
+	int gruppi_sospesi[N];
+	pthread_mutex_t m; //semaphore to protect the access to this structure
+	pthread_cond_t condition;
 } park;
 
 park data;
@@ -25,93 +25,64 @@ park data;
 void sleep_ms(int ms) {
 	struct timespec ts;
 	ts.tv_sec = ms / 1000;
-	ts.tv_nsec = (ms % 1000) * 1000000;  // ms ? ns
+	ts.tv_nsec = (ms % 1000) * 1000000; 
 	nanosleep(&ts, NULL);
 }
 
 void* parkTour(void *id) {
 	int user = (intptr_t) id;
-	printf("\n%d: in line at the ticket office\n", user);
-	bool has_ticket = false, has_vehicle = false;
-	bool wants_bike = (1 + rand() % 10) % 2 == 0;  // Random vote between 1 and 10
-	printf("\n%d: wants a bike %d\n", user, wants_bike);
-	// waiting semaphore to avoid multiple accesses to shared data structure
+	bool has_ticket = false;
+	int groupSize = (1 + rand() % 5);
 
-	while (!has_ticket && !has_vehicle) {
-		sem_wait(&data.S);
-		printf("\n%d: talking to the clerk\n", user);
-		if (!has_ticket && data.free_spots > 0) {
-			data.free_spots--;
-			printf("\n%d: got the ticket\n", user);
-			has_ticket = true;
-		}
-		if (has_ticket && !has_vehicle && wants_bike && data.free_bikes > 0) {
-			data.free_bikes--;
-			printf("\n%d: got a bike\n", user);
-			has_vehicle = true;
-		}
-		if (has_ticket && !has_vehicle && !wants_bike
-				&& data.free_scooters > 0) {
-			data.free_scooters--;
-			printf("\n%d: got a scooter\n", user);
-			has_vehicle = true;
-		}
-		sem_post(&data.S);
-		sleep_ms(3000);
-	};
+	printf("\n%d: group size is %d\n", user, groupSize);
+	
+	pthread_mutex_lock(&data.m);
+	int my_order = data.order_arrival++;
+	while (!(data.free_spots >= groupSize && data.free_cars > 0 && data.gruppi_sospesi[my_order] == 0)) {
+		data.gruppi_sospesi[user]++;
+		pthread_cond_wait(&data.condition, &data.m);
+		data.gruppi_sospesi[user]--;
+	}
+
+	data.free_spots -= groupSize;
+	data.free_cars--;
+	has_ticket = true;
+
+	pthread_mutex_unlock(&data.m);
 
 	printf("\n%d: got everything, starting to visit the park\n", user);
 	sleep_ms(3000);
 	printf("\n%d: finished visiting the park\n", user);
 
-	printf(
-			"\n%d: waiting to talk to the clerk to return the vehicle\n",
-			user);
-	while (has_vehicle || has_ticket) {
-		sem_wait(&data.S);
-		printf("\n%d: talking to the clerk\n", user);
-		if (has_ticket) {
-			data.free_spots++;
-			printf("\n%d: freed a spot in the park\n", user);
-			has_ticket = false;
-		}
-		if (has_vehicle && wants_bike) {
-			data.free_bikes++;
-			has_vehicle = false;
-			printf("\n%d: returned the bike\n", user);
-		}
-		if (has_vehicle && !wants_bike) {
-			data.free_scooters++;
-			has_vehicle = false;
-			printf("\n%d: returned the scooter\n", user);
-		}
-		sem_post(&data.S);
-	};
-	printf("\n%d: end of the visit to the park\n", user);
-	pthread_exit(NULL);  // Terminate the thread
+	pthread_mutex_lock(&data.m);
+	data.free_spots += groupSize;
+	data.free_cars++;
+	pthread_cond_broadcast(&data.condition);
+	pthread_mutex_unlock(&data.m);
+
+	printf("\n%d: end of visit to the park\n", user);
+	pthread_exit(NULL);
 }
 
 int main() {
-	pthread_t users[N];  // N users (threads)
+	pthread_t users[N];
 	int rc;
-	int status;
-	
-	data.free_spots = MaxP;
-	data.free_bikes = MaxB;
-	data.free_scooters = MaxM;
-	sem_init(&data.S, 0, 1);
 
-	// Thread creation (users)
+	pthread_mutex_init(&data.m, NULL);
+	pthread_cond_init(&data.condition, NULL);
+	data.free_spots = MaxP;
+	data.free_cars = MaxC;
+	data.order_arrival = 0;
+	memset(data.gruppi_sospesi, 0, sizeof(data.gruppi_sospesi));
+
 	for (int t = 0; t < N; t++) {
-		rc = pthread_create(&users[t], NULL, parkTour,
-				(void*) (intptr_t) t);
+		rc = pthread_create(&users[t], NULL, parkTour, (void*)(intptr_t)t);
 		if (rc) {
 			printf("ERROR creating thread %d\n", rc);
 			exit(-1);
 		}
 	}
 
-	// Wait for all threads to finish
 	for (int t = 0; t < N; t++) {
 		rc = pthread_join(users[t], NULL);
 		if (rc) {
@@ -119,6 +90,9 @@ int main() {
 			exit(-1);
 		}
 	}
+
+	pthread_mutex_destroy(&data.m);
+	pthread_cond_destroy(&data.condition);
 
 	printf("\nFINISHED!:\n");
 	return 0;
