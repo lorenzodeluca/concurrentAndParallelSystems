@@ -113,7 +113,7 @@ int main() {
 
 	// Wait for all threads to finish
 	for (int t = 0; t < N; t++) {
-		rc = pthread_join(users[t], (void*) &status);
+		rc = pthread_join(users[t], NULL);
 		if (rc) {
 			printf("ERROR joining thread %d\n", rc);
 			exit(-1);
@@ -123,4 +123,3 @@ int main() {
 	printf("\nFINISHED!:\n");
 	return 0;
 }
-
