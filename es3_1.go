@@ -66,7 +66,7 @@ func server() {
 
 			} else if r.bikeType == 1 {
 				if len(availableEB) > 0 {
-					risorsa[r.id] <- <-availableBT
+					risorsa[r.id] <- <-availableEB
 				} else {
 					waitingEB <- r
 					fmt.Println("S: richiesta", r.id, " aggiunta alla coda delle attese EB")
