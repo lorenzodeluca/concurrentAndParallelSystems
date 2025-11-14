@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 const MAXBUFF = 3
@@ -35,12 +34,12 @@ func when(b bool, c chan int) chan int {
 }
 
 func client(myid int) {
-	var tt int = rand.Intn(5) + 1
+	var tt int = rand.Intn(2) + 1
 	var userType int = rand.Intn(2) //rand between 0 inclusive - 2 esclusive
 	var dir int = rand.Intn(2)      //rand between 0 inclusive - 2 esclusive
 
 	fmt.Printf("[user/èPedone %d/%d]inizializzazione  %d direzione %d in secondi %d \n", myid, userType, myid, dir, tt)
-	time.Sleep(time.Duration(tt) * time.Second)
+	//time.Sleep(time.Duration(tt) * time.Second)
 	if dir == N { // asynchronous send
 		if userType == BRIDGE_USER_TYPE_CAR {
 			entryCarGateN <- myid
