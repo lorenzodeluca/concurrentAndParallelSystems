@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
             printf("Usage: %s <matrix size>\n", argv[0]);
             return 1;
         }else if (argc == 2){
-            N = atoi(argv[1])
+            N = atoi(argv[1]);
         }
     }
 
@@ -43,34 +43,34 @@ int main(int argc, char *argv[])
     begin=MPI_Wtime();
         
     // Define this proc(my) vars
-    double *MATRIX = NULL;
+    double *A = NULL; //data matrix
     int i,j;
 
      
     if (rank == 0){
-        //MATRIX initialization with random values
-        MATRIX = malloc(N * N * sizeof(double));
+        //A initialization with random values
+        A = malloc(N * N * sizeof(double));
         srand((unsigned)time(NULL));
         for (int i = 0; i < N * N; i++)
-            MATRIX[i] = rand() % 100;
+            A[i] = rand() % 100;
 
-        // MATRIX output
-        printf("[proc %d] MATRIX:\n", rank);
+        // A output
+        printf("[proc %d] T:\n", rank);
         for(i=0;i<N;i++){
             for(j=0;j<N;j++)
-                printf("%f\t ",MATRIX[i*N + j]);
+                printf("%f\t ",A[i*N + j]);
             printf("\n");
         }
     }
 
-    //scatter of the rows of MATRIX in blocks of N/P rows + 1 overlap row for each block
+    //scatter of the rows of A in blocks of N/P rows + 1 overlap row for each block
     // sendcounts[r] - > integer array (of length group size) specifying the number of elements to send to each processor 
     // displs[r] -> where the data for the rank r process starts
     // local_rows -> how many rows the process has
     //
     // only rank 0 calculate the portions... after he sends the data to the nodes
-    int *sendcounts = malloc(P * sizeof(int));
-    int *displs     = malloc(P * sizeof(int));
+    int *sendcounts = NULL;
+    int *displs     = NULL;
     if (rank == 0){
         sendcounts = malloc(P * sizeof(int));
         displs = malloc(P * sizeof(int));
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
     int *my_ris = malloc(my_elems_count * sizeof(int));
 
     // Scatter of the parts of the matrix calculated before 
-    MPI_Scatterv(MATRIX, sendcounts, displs, MPI_DOUBLE,
+    MPI_Scatterv(A, sendcounts, displs, MPI_DOUBLE,
                  my_matrix, my_elems_count, MPI_DOUBLE,
                  0, MPI_COMM_WORLD);
 
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
                 printf("Rank %d riga globale %d: ",
                        rank, global_start + i);
                 for (int j = 0; j < N; j++)
-                    printf("%3d ", my_matrix[i*N + j]);
+                    printf("%6.2f ", my_matrix[i*N + j]);
                 printf("\n");
             }
             printf("\n");
@@ -133,36 +133,36 @@ int main(int argc, char *argv[])
         for(int c=0;c<N;c++){
 
             // calculating result for element [r][c]
-            int average = 0;
+            double average = 0;
             int elements = 0;
             for(int r2 = r-1 ; r2<=r+1; r2++){
                 for(int c2=c-1;c2<=c+1;c2++){
                     if(r2>=0 && r2<my_rows && c2 >= 0 && c2 < N){
-                        average += my_matrix[r2*N + c2]
+                        average += my_matrix[r2*N + c2];
                         elements++;
                     }
                 }
             }
             average /= elements;
-            if(my_matrix[r*N + c] > average) my_ris[r*N + c] = 1
-            else my_ris[r*N + c] = 0
+            if(my_matrix[r*N + c] > average) my_ris[r*N + c] = 1;
+            else my_ris[r*N + c] = 0;
         }
     }
 
 	//results gather into rank 0
-    int *ris = NULL;
+    int *T = NULL; //results matrix
     if (rank == 0){
-        C = malloc(N * N * sizeof(int));
+        T = malloc(N * N * sizeof(int));
     }
-    MPI_Gather(my_ris, my_elems, MPI_INT,
-               ris, my_elems, MPI_INT,
+    MPI_Gather(my_ris, my_elems_count, MPI_INT,
+               T, my_elems, MPI_INT,
                0, MPI_COMM_WORLD);
 
     if (rank == 0){
-        printf("\nRESULT MATRIX:\n");
+        printf("\nRESULT MATRIX T:\n");
         for (int i = 0; i < N; i++){
             for (int j = 0; j < N; j++){
-                printf("%d ", C[i*N + j]);
+                printf("%d ", T[i*N + j]);
             }
                 
             printf("\n");
@@ -177,25 +177,16 @@ int main(int argc, char *argv[])
     if (rank == 0){       
         printf("nodes: %d, matrix size: %d, elapsed time: %fs\n",P, N, global_elaps);
     }
-    
-    
-    if (rank == 0){
-        printf("\n\n[processo %d] matrice C:\n", rank);
-        for(i=0;i<N;i++){
-            for(j=0;j<N;j++)
-                printf("%d\t ",C[i][j]);
-            printf("\n");
-        }
-    }
 
     free(my_matrix);
     free(my_ris);
     if (rank == 0) {
-        free(MATRIX);
+        free(A);
         free(sendcounts);
         free(displs);
-        free(C);
+        free(T);
     }
 
     MPI_Finalize();
+    return EXIT_SUCCESS;
 }
