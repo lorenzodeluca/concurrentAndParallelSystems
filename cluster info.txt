@@ -1,0 +1,19 @@
+*********************************************************************************
+* Welcome to GALILEO100 Cluster /                                               *
+*            Linux Infiniband Cluster  - CentOS 8.3                             *
+*                                                                               *
+* 554 compute nodes with 2 x CPU Intel CascadeLake 8260,                        *
+*             each with 24 cores, 2.4 GHz, 384GB RAM DDR4, divided in:          *
+*                                                                               *
+*      - 340 standard nodes ("thin nodes") 480 GB SSD                           *
+*      - 180 data processing nodes ("fat nodes") 2TB SSD, 3TB Intel Optane      *
+*      -  34 GPU nodes (visualization "viz") with 2x NVIDIA GPU V100            *
+*                                                                               *
+* Internal Network: Mellanox Infiniband HDR100                                  *
+* Workload Manager: SLURM 23.11                                                 *
+*                                                                               *
+* CINECA HPC User Guide: https://docs.hpc.cineca.it                             *
+* Cluster specifics: https://docs.hpc.cineca.it/hpc/galileo.html                *
+*                                                                               *
+* For assistance: superc@cineca.it                                              *
+*********************************************************************************

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
     MPI_Init(&argc, &argv);
      
-    int P, rank; // P = number of nodes, rank = node id
+    int P, rank; // P = number of processes, rank = process id
     MPI_Comm_size(MPI_COMM_WORLD, &P);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
@@ -29,11 +29,11 @@ int main(int argc, char *argv[])
         }
     }
 
-    //sending matrix size to all nodes
-    MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD); // int broadcast from node 0 to all the other nodes
+    //sending matrix size to all processes
+    MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD); // int broadcast from process 0 to all the other processes
 
     if(P > N){
-        if(rank==0) printf("error: there are more nodes( %d ) than the matrix size %d.\n",P, N);
+        if(rank==0) printf("error: there are more processes( %d ) than the matrix size %d.\n",P, N);
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
     //printf("[process %d / %d]\n",rank,size);
@@ -42,11 +42,9 @@ int main(int argc, char *argv[])
     MPI_Barrier(MPI_COMM_WORLD);
     begin=MPI_Wtime();
         
-    // Define this proc(my) vars
+    //matrix init
     double *A = NULL; //data matrix
-    int i,j;
 
-     
     if (rank == 0){
         //A initialization with random values
         A = malloc(N * N * sizeof(double));
@@ -56,52 +54,96 @@ int main(int argc, char *argv[])
 
         // A output
         printf("[proc %d] T:\n", rank);
-        for(i=0;i<N;i++){
-            for(j=0;j<N;j++)
+        for(int i=0;i<N;i++){
+            for(int j=0;j<N;j++)
                 printf("%f\t ",A[i*N + j]);
             printf("\n");
         }
     }
+
+    ///////// --- SCATTER preparation---
 
     //scatter of the rows of A in blocks of N/P rows + 1 overlap row for each block
     // sendcounts[r] - > integer array (of length group size) specifying the number of elements to send to each processor 
     // displs[r] -> where the data for the rank r process starts
     // local_rows -> how many rows the process has
     //
-    // only rank 0 calculate the portions... after he sends the data to the nodes
-    int *sendcounts = NULL;
-    int *displs     = NULL;
-    if (rank == 0){
+    // only rank 0 calculate the portions... after he sends the data to the processes
+    int *sendcounts = NULL; //integer array, number of values to send to each processor(including additional rows("overlapping rows") needed for calculations)
+    int *displs = NULL; //integer array, Entry i specifies the displacement relative to sendbuf from which to take the outgoing data to process i
+    int *valid_rows = NULL; //number of rows that this process needs to calculate(without overlapping rows)
+    int *start_row_by_process = NULL; //starting row in the original matrix
+    
+    
+    int *recvcounts = NULL; //for the gatherv, without additional overlapping rows
+    int *recvdispls = NULL; //for the gatherv, without additional overlapping rows
+    if (rank == 0){//calculating which rows each process needs
         sendcounts = malloc(P * sizeof(int));
         displs = malloc(P * sizeof(int));
+        valid_rows = malloc(P * sizeof(int));
+        start_row_by_process = malloc(P * sizeof(int));
+        recvcounts   = malloc(P * sizeof(int));//containing the number of elements that are received from each process  
+        recvdispls   = malloc(P * sizeof(int));//displacement relative to recvbuf at which to place the incoming data from process r 
 
-        int rows = N / P;
-        int overlap = 1;
+        int rows_per_node = N / P; // standard number of rows for each process
+        int remaining_rows  = N % P; // needed if there is an uneven number of rows for each process
+        int recv_disp = 0;
 
-        for (int r = 0; r < P; r++){
-            int start = r * rows - overlap;
-            int end   = (r + 1) * rows + overlap - 1;
+        int current = 0;
+        for (int r = 0; r < P; r++) {
+            int rows = rows_per_node; 
+            if(r<remaining_rows){// the first processes get the uneven rows
+                rows+=1;
+            }
 
-            if (start < 0) start = 0; // first node starting row index fix
-            if (end >= N) end = N - 1; // last node rows fix 
-//TODO: se le righe dell'ultimo processo sono minori di 1, devo anticipare lo start per lui?
-//TODO: controllare naming convention vars coerente su tutto il codice e corretta
 
-            int local_rows = end - start + 1;
-            sendcounts[r] = local_rows * N;  // number of elements for each node
-            displs[r] = start * N;           // where the data for the rank r process starts
+            int start = current;
+            int end   = current+rows-1;
+
+            int send_start = start - 1;  //adding one overlap rows at the beginning of the rows for this 
+            if(start == 0){ //first process
+                send_start = start;
+            }
+
+            int send_end   = end + 1;
+            if(end == N - 1){//last process
+                send_end = end;
+            }
+
+            valid_rows[r]=rows; //number of rows that this process must output(without overlap rows needed for doing the calculations)
+            start_row_by_process[r]=start;//first row that this process must edit
+
+            //scatter vars
+            sendcounts[r]=(send_end-send_start+1)*N;//number of rows * columns for each row
+            displs[r]=send_start * N; //starting position for the first element for the r process 
+
+            //gather vars
+            recvcounts[r]=rows * N;
+            recvdispls[r]=recv_disp;
+            recv_disp+=recvcounts[r];
+
+            current+=rows;
         }
     }
 
-    //sending the data to all the nodes
+    ///////// --- SCATTER---
+
+    // from sendcounts(array from rank 0) to my_elems_count
     int my_elems_count;
     MPI_Scatter(sendcounts, 1, MPI_INT, &my_elems_count, 1, MPI_INT, 0, MPI_COMM_WORLD);
     int my_rows = my_elems_count / N;
 
-    double *my_matrix = malloc(my_elems_count * sizeof(double));
-    int *my_ris = malloc(my_elems_count * sizeof(int));
+    int my_start_row;
+    int my_valid_rows;
+    MPI_Scatter(start_row_by_process, 1, MPI_INT,
+                &my_start_row, 1, MPI_INT,
+                0, MPI_COMM_WORLD);
+    MPI_Scatter(valid_rows, 1, MPI_INT,
+                &my_valid_rows, 1, MPI_INT,
+                0, MPI_COMM_WORLD);
 
-    // Scatter of the parts of the matrix calculated before 
+    // from A(from rank 0) to my_matrix
+    double *my_matrix = malloc(my_elems_count * sizeof(double));
     MPI_Scatterv(A, sendcounts, displs, MPI_DOUBLE,
                  my_matrix, my_elems_count, MPI_DOUBLE,
                  0, MPI_COMM_WORLD);
@@ -111,13 +153,13 @@ int main(int argc, char *argv[])
     for (int r = 0; r < P; r++){
         if (rank == r){
             int global_start = displs[rank] / N;
-            printf("Rank %d riceve righe globali %d -> %d\n",
+            printf("Rank %d rows %d -> %d\n",
                    rank,
                    global_start,
                    global_start + my_rows - 1);
 
             for (int i = 0; i < my_rows; i++){
-                printf("Rank %d riga globale %d: ",
+                printf("Rank %d row %d: ",
                        rank, global_start + i);
                 for (int j = 0; j < N; j++)
                     printf("%6.2f ", my_matrix[i*N + j]);
@@ -128,8 +170,9 @@ int main(int argc, char *argv[])
         MPI_Barrier(MPI_COMM_WORLD);
     }
     
-    // parallel calculus
-    for(int r = 0 ; r<my_rows-1; r++){ // TODO: capire come gestire ultima riga assoluta
+    // parallel calculations: each node calculate its part of the result matrix
+    int *my_ris = malloc(my_elems_count * sizeof(int));
+    for(int r = 0 ; r<my_rows-1; r++){ // TODO: controllare se ultima riga calcolata correttamente
         for(int c=0;c<N;c++){
 
             // calculating result for element [r][c]
@@ -154,9 +197,11 @@ int main(int argc, char *argv[])
     if (rank == 0){
         T = malloc(N * N * sizeof(int));
     }
-    MPI_Gather(my_ris, my_elems_count, MPI_INT,
-               T, my_elems, MPI_INT,
-               0, MPI_COMM_WORLD);
+
+    //MPI_Gatherv: doesnt contain overlap rows
+    MPI_Gatherv(my_ris, my_valid_rows * N, MPI_INT,
+                T, recvcounts, recvdispls, MPI_INT,
+                0, MPI_COMM_WORLD);
 
     if (rank == 0){
         printf("\nRESULT MATRIX T:\n");
@@ -175,7 +220,7 @@ int main(int argc, char *argv[])
     local_elaps= end-begin;
     MPI_Reduce(&local_elaps, &global_elaps,1,MPI_DOUBLE,MPI_MAX,0,MPI_COMM_WORLD);
     if (rank == 0){       
-        printf("nodes: %d, matrix size: %d, elapsed time: %fs\n",P, N, global_elaps);
+        printf("processes: %d, matrix size: %d, elapsed time: %fs\n",P, N, global_elaps);
     }
 
     free(my_matrix);
