@@ -1,0 +1,16 @@
+[ldeluca1@login03 1_IntelMPI_Galileo100]$ cat job.out
+Inizio test Weak Scaling: Carico costante per core...
+Esecuzione: P=1, N=2000 su 1 nodi (tpn=2)
+1;2000;0.079352;0.050952;
+Esecuzione: P=10, N=6000 su 5 nodi (tpn=2)
+10;6000;0.704281;0.191757;
+Esecuzione: P=20, N=8000 su 10 nodi (tpn=2)
+20;8000;1.254193;0.345807;
+Esecuzione: P=30, N=10000 su 15 nodi (tpn=2)
+30;10000;1.946183;0.421726;
+Esecuzione: P=40, N=12000 su 20 nodi (tpn=2)
+40;12000;2.819630;0.748771;
+Esecuzione: P=50, N=14000 su 25 nodi (tpn=2)
+50;14000;3.836161;0.993141;
+Test completati. Dati salvati
+[ldeluca1@login03 1_IntelMPI_Galileo100]$

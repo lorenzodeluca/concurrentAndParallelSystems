@@ -1,0 +1,29 @@
+[ldeluca1@login03 omp]$ cat job.out
+Inizio test Strong Scaling OpenMP (N=8000)...
+Esecuzione con P=1
+1;8000;0.655742;3.195720;
+Esecuzione con P=4
+4;8000;0.653006;0.800589;
+Esecuzione con P=8
+8;8000;0.655415;0.400469;
+Esecuzione con P=12
+12;8000;0.655677;0.267223;
+Esecuzione con P=16
+16;8000;0.656592;0.200618;
+Esecuzione con P=20
+20;8000;0.656007;0.161043;
+Esecuzione con P=24
+24;8000;0.655139;0.136050;
+Esecuzione con P=28
+28;8000;0.655151;0.116630;
+Esecuzione con P=32
+32;8000;0.656379;0.102840;
+Esecuzione con P=36
+36;8000;0.657898;0.091420;
+Esecuzione con P=40
+40;8000;0.657480;0.082691;
+Esecuzione con P=44
+44;8000;0.658160;0.076321;
+Esecuzione con P=48
+48;8000;0.660634;0.069577;
+Test completati. Dati salvati

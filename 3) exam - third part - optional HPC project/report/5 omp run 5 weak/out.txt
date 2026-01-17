@@ -1,0 +1,30 @@
+[ldeluca1@login03 omp]$ cat job.out
+Inizio test Strong Scaling OpenMP (carico costante per thread)...
+Esecuzione con P=1, N=2000
+1;2000;0.041448;0.199864;
+Esecuzione con P=4, N=4000
+4;4000;0.161368;0.200200;
+Esecuzione con P=8, N=4000
+8;4000;0.162790;0.100415;
+Esecuzione con P=12, N=6000
+12;6000;0.368910;0.150930;
+Esecuzione con P=16, N=8000
+16;8000;0.655196;0.201644;
+Esecuzione con P=20, N=8000
+20;8000;0.653939;0.161656;
+Esecuzione con P=24, N=8000
+24;8000;0.655645;0.135972;
+Esecuzione con P=28, N=10000
+28;10000;1.022968;0.182152;
+Esecuzione con P=32, N=10000
+32;10000;1.029287;0.159427;
+Esecuzione con P=36, N=12000
+36;12000;1.474639;0.204071;
+Esecuzione con P=40, N=12000
+40;12000;1.484845;0.185245;
+Esecuzione con P=44, N=12000
+44;12000;1.487019;0.167677;
+Esecuzione con P=48, N=12000
+48;12000;1.478916;0.154813;
+Test completati. Dati salvati
+[ldeluca1@login03 omp]$

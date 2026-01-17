@@ -1,0 +1,33 @@
+[ldeluca1@login03 1_IntelMPI_Galileo100]$ scontrol show job 18700484
+JobId=18700484 JobName=WeakScaling_N
+   UserId=ldeluca1(131852) GroupId=interactive(25200) MCS_label=N/A
+   Priority=143635 Nice=0 Account=tra25_inginfbo QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:01:49 TimeLimit=00:10:00 TimeMin=N/A
+   SubmitTime=2026-01-17T05:58:08 EligibleTime=2026-01-17T05:58:08
+   AccrueTime=2026-01-17T05:58:08
+   StartTime=2026-01-17T05:58:09 EndTime=2026-01-17T06:08:09 Deadline=N/A
+   PreemptEligibleTime=2026-01-17T05:58:09 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-01-17T05:58:09 Scheduler=Main
+   Partition=g100_usr_prod AllocNode:Sid=login03:2234158
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=r513c06n01,r513c07n02
+   BatchHost=r513c06n01
+   NumNodes=2 NumCPUs=40 NumTasks=40 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=40,mem=312000M,node=2,billing=40
+   AllocTRES=cpu=40,mem=312000M,node=2,billing=40
+   Socks/Node=* NtasksPerN:B:S:C=20:0:*:* CoreSpec=*
+   MinCPUsNode=20 MinMemoryCPU=7800M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/launcherForReport.sh
+   WorkDir=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100
+   StdErr=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/job.err
+   StdIn=/dev/null
+   StdOut=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/job.out
+   Power=
+   MailUser=lorenzo@deluca.pro MailType=INVALID_DEPEND,BEGIN,END,FAIL,REQUEUE,STAGE_OUT
+
+
+[ldeluca1@login03 1_IntelMPI_Galileo100]$

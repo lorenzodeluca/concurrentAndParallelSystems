@@ -1,0 +1,22 @@
+[ldeluca1@login03 1_IntelMPI_Galileo100]$ cat job.out
+Inizio test di scalabilità con P=40...
+Esecuzione con N=2000 (P=40)
+40;2000;0.078178;0.020857;
+Esecuzione con N=6000 (P=40)
+40;6000;0.700600;0.155669;
+Esecuzione con N=10000 (P=40)
+40;10000;1.946253;0.453177;
+Esecuzione con N=14000 (P=40)
+40;14000;3.821287;0.917415;
+Esecuzione con N=18000 (P=40)
+40;18000;6.345142;1.503162;
+Esecuzione con N=22000 (P=40)
+40;22000;9.508607;2.251507;
+Esecuzione con N=26000 (P=40)
+40;26000;13.325200;3.133839;
+Esecuzione con N=30000 (P=40)
+40;30000;17.786244;4.155267;
+Esecuzione con N=34000 (P=40)
+40;34000;22.849729;5.334767;
+Esecuzione con N=38000 (P=40)
+[ldeluca1@login03 1_IntelMPI_Galileo100]$
