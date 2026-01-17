@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         //reading command line parameters
         if (argc > 2){
             printf("Usage: %s <matrix size>\n", argv[0]);
-            return 1;
+            MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
         }else if (argc == 2){
             N = atoi(argv[1]);
         }
@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
                 0, MPI_COMM_WORLD);
 
     // from A(from rank 0) to my_matrix
-    double *my_matrix = malloc(my_elems_count * sizeof(double));
+    double *my_matrix = malloc(my_elems_count * sizeof(double)); //includes overlaps
     MPI_Scatterv(A, sendcounts, displs, MPI_DOUBLE,
                  my_matrix, my_elems_count, MPI_DOUBLE,
                  0, MPI_COMM_WORLD);
@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
     MPI_Barrier(MPI_COMM_WORLD);
     for (int r = 0; r < P; r++){
         if (rank == r){
-            int global_start = displs[rank] / N;
+            int global_start = my_start_row;
             printf("Rank %d rows %d -> %d\n",
                    rank,
                    global_start,
@@ -171,14 +171,19 @@ int main(int argc, char *argv[])
     }
     
     // parallel calculations: each node calculate its part of the result matrix
-    int *my_ris = malloc(my_elems_count * sizeof(int));
-    for(int r = 0 ; r<my_rows-1; r++){ // TODO: controllare se ultima riga calcolata correttamente
-        for(int c=0;c<N;c++){
+    int *my_ris = malloc(my_valid_rows*N*sizeof(int));
+    int r_without_overlap, offset=0;//to remove the my_matrix beginning overlap if present
+    if(my_start_row!=0){ //if my_matrix contains a overlap row at the beginning i ignore it for calculations 
+        offset=1;
+    }
 
+    for(int r = 0 ; r<my_valid_rows; r++){
+         r_without_overlap = r+offset;
+        for(int c=0;c<N;c++){
             // calculating result for element [r][c]
             double average = 0;
             int elements = 0;
-            for(int r2 = r-1 ; r2<=r+1; r2++){
+            for(int r2 = r_without_overlap-1 ; r2<=r_without_overlap+1; r2++){
                 for(int c2=c-1;c2<=c+1;c2++){
                     if(r2>=0 && r2<my_rows && c2 >= 0 && c2 < N){
                         average += my_matrix[r2*N + c2];
@@ -187,7 +192,7 @@ int main(int argc, char *argv[])
                 }
             }
             average /= elements;
-            if(my_matrix[r*N + c] > average) my_ris[r*N + c] = 1;
+            if(my_matrix[r_without_overlap*N + c] > average) my_ris[r*N + c] = 1;
             else my_ris[r*N + c] = 0;
         }
     }
@@ -230,6 +235,10 @@ int main(int argc, char *argv[])
         free(sendcounts);
         free(displs);
         free(T);
+        free(valid_rows);
+        free(start_row_by_process);
+        free(recvcounts);
+        free(recvdispls);
     }
 
     MPI_Finalize();
