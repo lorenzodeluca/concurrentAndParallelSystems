@@ -1,0 +1,33 @@
+[ldeluca1@login03 1_IntelMPI_Galileo100]$ scontrol show job 18700161
+JobId=18700161 JobName=LDLperformanceOptimization
+   UserId=ldeluca1(131852) GroupId=interactive(25200) MCS_label=N/A
+   Priority=156781 Nice=0 Account=tra25_inginfbo QOS=normal
+   JobState=COMPLETED Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:01:50 TimeLimit=00:10:00 TimeMin=N/A
+   SubmitTime=2026-01-17T05:07:17 EligibleTime=2026-01-17T05:07:17
+   AccrueTime=2026-01-17T05:07:17
+   StartTime=2026-01-17T05:07:18 EndTime=2026-01-17T05:09:08 Deadline=N/A
+   PreemptEligibleTime=2026-01-17T05:07:18 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-01-17T05:07:18 Scheduler=Main
+   Partition=g100_usr_prod AllocNode:Sid=login03:1828416
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=r504n014,r506c05n04,r507c04n01,r512c06n04,r513c07n02,r513n005,r514c04n03,r515c02n04,r519c04n02,r520c03n02
+   BatchHost=r504n014
+   NumNodes=10 NumCPUs=480 NumTasks=480 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=480,mem=3744000M,node=10,billing=480
+   AllocTRES=cpu=480,mem=3744000M,node=10,billing=480
+   Socks/Node=* NtasksPerN:B:S:C=48:0:*:* CoreSpec=*
+   MinCPUsNode=48 MinMemoryCPU=7800M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/launcherForReport.sh
+   WorkDir=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100
+   StdErr=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/job.err
+   StdIn=/dev/null
+   StdOut=/g100/home/userexternal/ldeluca1/t01/code/1_IntelMPI_Galileo100/job.out
+   Power=
+   MailUser=lorenzo@deluca.pro MailType=INVALID_DEPEND,BEGIN,END,FAIL,REQUEUE,STAGE_OUT
+
+
+[ldeluca1@login03 1_IntelMPI_Galileo100]$

@@ -1,0 +1,35 @@
+[ldeluca1@login03 1_IntelMPI_Galileo100]$ cat job.out
+Inizio Fase 1: Scalabilità intra-nodo...
+Esecuzione con P=1 (1 Nodo, 1 TPN)
+1;8000;2.041622;
+Esecuzione con P=2 (1 Nodo, 2 TPN)
+2;8000;1.793859;
+Esecuzione con P=4 (1 Nodo, 4 TPN)
+4;8000;1.586788;
+Esecuzione con P=8 (1 Nodo, 8 TPN)
+8;8000;1.666093;
+Esecuzione con P=12 (1 Nodo, 12 TPN)
+12;8000;1.628733;
+Esecuzione con P=24 (1 Nodo, 24 TPN)
+24;8000;1.616555;
+Esecuzione con P=48 (1 Nodo, 48 TPN)
+48;8000;1.564882;
+Inizio Fase 2: Scalabilità inter-nodo...
+Esecuzione con P=96 (2 Nodi, 48 TPN)
+96;8000;1.561331;
+Esecuzione con P=144 (3 Nodi, 48 TPN)
+144;8000;1.527494;
+Esecuzione con P=192 (4 Nodi, 48 TPN)
+192;8000;1.533999;
+Esecuzione con P=240 (5 Nodi, 48 TPN)
+240;8000;1.520882;
+Esecuzione con P=288 (6 Nodi, 48 TPN)
+288;8000;1.592255;
+Esecuzione con P=336 (7 Nodi, 48 TPN)
+336;8000;1.605357;
+Esecuzione con P=384 (8 Nodi, 48 TPN)
+384;8000;1.608012;
+Esecuzione con P=432 (9 Nodi, 48 TPN)
+432;8000;1.613617;
+Esecuzione con P=480 (10 Nodi, 48 TPN)
+480;8000;1.631993;

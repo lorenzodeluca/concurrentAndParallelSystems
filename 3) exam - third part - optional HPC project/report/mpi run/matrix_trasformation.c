@@ -10,7 +10,7 @@
 #define ENABLE_DEBUG_OUTPUTS 0
 
 int main(int argc, char *argv[]){   
-    double time_paral_begin,time_paral_end,time_seq_begin,time_seq_end,local_elaps,seq_elaps,global_paral_elaps;
+    double time_begin, time_end, local_elaps,global_elaps;
     int N = DEFAULT_MATRIX_SIZE; // N = matrix rows/cols size
 
     MPI_Init(&argc, &argv);
@@ -19,20 +19,7 @@ int main(int argc, char *argv[]){
     MPI_Comm_size(MPI_COMM_WORLD, &P);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-    //matrix init
-    double *A = NULL; //data matrix
-
-    // scatter/gather vars
-    int *sendcounts = NULL; //integer array, number of values to send to each processor(including additional rows("overlapping rows") needed for calculations)
-    int *displs = NULL; //integer array, Entry i specifies the displacement relative to sendbuf from which to take the outgoing data to process i
-    int *valid_rows = NULL; //number of rows that this process needs to calculate(without overlapping rows)
-    int *start_row_by_process = NULL; //starting row in the original matrix
-    int *recvcounts = NULL; //for the gatherv, without additional overlapping rows
-    int *recvdispls = NULL; //for the gatherv, without additional overlapping rows
-
     if(rank == 0){ // input parameters validation
-        time_seq_begin = MPI_Wtime();
-
         //reading command line parameters
         if (argc > 2){
             printf("Usage: %s <matrix size>\n", argv[0]);
@@ -40,7 +27,25 @@ int main(int argc, char *argv[]){
         }else if (argc == 2){
             N = atoi(argv[1]);
         }
+    }
 
+    //sending matrix size to all processes
+    MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD); // int broadcast from process 0 to all the other processes
+
+    if(P > N){
+        if(rank==0) printf("error: there are more processes( %d ) than the matrix size %d.\n",P, N);
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    }
+    //printf("[process %d / %d]\n",rank,size);
+    
+    // parallel logic starts here, initial sync barrier:
+    MPI_Barrier(MPI_COMM_WORLD);
+    time_begin=MPI_Wtime();
+        
+    //matrix init
+    double *A = NULL; //data matrix
+
+    if (rank == 0){
         //A initialization with random values
         A = malloc(N * N * sizeof(double));
         srand((unsigned)time(NULL));
@@ -56,16 +61,26 @@ int main(int argc, char *argv[]){
                 printf("\n");
             }
         }
+        
+    }
 
-        ///////// --- SCATTER/GATHER preparation---
+    ///////// --- SCATTER preparation---
 
-        //scatter of the rows of A in blocks of N/P rows + 1 overlap row for each block
-        // sendcounts[r] - > integer array (of length group size) specifying the number of elements to send to each processor 
-        // displs[r] -> where the data for the rank r process starts
-        // local_rows -> how many rows the process has
-        //
-        // only rank 0 calculate the portions... after he sends the data to the processes
-        //calculating which rows each process needs
+    //scatter of the rows of A in blocks of N/P rows + 1 overlap row for each block
+    // sendcounts[r] - > integer array (of length group size) specifying the number of elements to send to each processor 
+    // displs[r] -> where the data for the rank r process starts
+    // local_rows -> how many rows the process has
+    //
+    // only rank 0 calculate the portions... after he sends the data to the processes
+    int *sendcounts = NULL; //integer array, number of values to send to each processor(including additional rows("overlapping rows") needed for calculations)
+    int *displs = NULL; //integer array, Entry i specifies the displacement relative to sendbuf from which to take the outgoing data to process i
+    int *valid_rows = NULL; //number of rows that this process needs to calculate(without overlapping rows)
+    int *start_row_by_process = NULL; //starting row in the original matrix
+    
+    
+    int *recvcounts = NULL; //for the gatherv, without additional overlapping rows
+    int *recvdispls = NULL; //for the gatherv, without additional overlapping rows
+    if (rank == 0){//calculating which rows each process needs
         sendcounts = malloc(P * sizeof(int));
         displs = malloc(P * sizeof(int));
         valid_rows = malloc(P * sizeof(int));
@@ -112,23 +127,8 @@ int main(int argc, char *argv[]){
 
             current+=rows;
         }
-        time_seq_end = MPI_Wtime();
     }
 
-    // parallel logic starts here, initial sync barrier:
-    MPI_Barrier(MPI_COMM_WORLD);
-    time_paral_begin=MPI_Wtime();
-
-    //sending matrix size to all processes
-    MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD); // int broadcast from process 0 to all the other processes
-
-    if(P > N){
-        if(rank==0) printf("error: there are more processes( %d ) than the matrix size %d.\n",P, N);
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
-    }
-    //printf("[process %d / %d]\n",rank,size);
-
-    
     ///////// --- SCATTER---
 
     // from sendcounts(array from rank 0) to my_elems_count
@@ -175,7 +175,7 @@ int main(int argc, char *argv[]){
         }
     }
     
-    ///////// --- parallel calculations: each node calculate its part of the result matrix---
+    // parallel calculations: each node calculate its part of the result matrix
     int *my_ris = malloc(my_valid_rows*N*sizeof(int));
     int r_without_overlap, offset=0;//to remove the my_matrix beginning overlap if present
     if(my_start_row!=0){ //if my_matrix contains a overlap row at the beginning i ignore it for calculations 
@@ -201,8 +201,6 @@ int main(int argc, char *argv[]){
             else my_ris[r*N + c] = 0;
         }
     }
-
-    ///////// --- GATHER---
 
 	//results gather into rank 0
     int *T = NULL; //results matrix
@@ -230,14 +228,13 @@ int main(int argc, char *argv[]){
 
 
     MPI_Barrier(MPI_COMM_WORLD);
-    time_paral_end=MPI_Wtime();
-    local_elaps= time_paral_end-time_paral_begin;
-    MPI_Reduce(&local_elaps, &global_paral_elaps,1,MPI_DOUBLE,MPI_MAX,0,MPI_COMM_WORLD);
+    time_end=MPI_Wtime();
+    local_elaps= time_end-time_begin;
+    MPI_Reduce(&local_elaps, &global_elaps,1,MPI_DOUBLE,MPI_MAX,0,MPI_COMM_WORLD);
     if (rank == 0){
-        seq_elaps = time_seq_end-time_seq_begin;
         //csv format output
-        //printf("processes;matrix size;seq_elaps;elapsed parallel time\n");       
-        printf("%d;%d;%f;%f;\n",P, N, seq_elaps,global_paral_elaps);
+        //printf("processes;matrix size;elapsed time\n");       
+        printf("%d;%d;%f;\n",P, N, global_elaps);
     }
 
     free(my_matrix);
