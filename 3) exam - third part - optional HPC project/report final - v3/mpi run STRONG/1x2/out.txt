@@ -1,0 +1,28 @@
+[ldeluca1@login03 mpi]$ cat job.out
+Esecuzione con P=1 (1 Nodo, 1 TPN)
+1;20000;7.743335;4.678177;
+Esecuzione con P=4 (1 Nodo, 4 TPN)
+4;20000;7.713643;1.897780;
+Esecuzione con P=8 (1 Nodo, 8 TPN)
+8;20000;7.748253;2.254403;
+Esecuzione con P=12 (1 Nodo, 12 TPN)
+12;20000;8.004817;2.011689;
+Esecuzione con P=16 (1 Nodo, 16 TPN)
+16;20000;7.759202;1.976858;
+Esecuzione con P=20 (1 Nodo, 20 TPN)
+20;20000;7.759671;1.980196;
+Esecuzione con P=24 (1 Nodo, 24 TPN)
+24;20000;7.759193;1.944755;
+Esecuzione con P=28 (1 Nodo, 28 TPN)
+28;20000;7.770939;1.898041;
+Esecuzione con P=32 (1 Nodo, 32 TPN)
+32;20000;7.751816;1.870832;
+Esecuzione con P=36 (1 Nodo, 36 TPN)
+36;20000;7.797686;1.966869;
+Esecuzione con P=40 (1 Nodo, 40 TPN)
+40;20000;7.905849;2.114263;
+Esecuzione con P=44 (1 Nodo, 44 TPN)
+44;20000;8.164091;2.162107;
+Esecuzione con P=48 (1 Nodo, 48 TPN)
+48;20000;8.451424;2.140852;
+Test completati. Dati salvati
