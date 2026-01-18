@@ -1,0 +1,52 @@
+Esecuzione con P=1 (1 Nodi, 1 TPN)
+1;20000;7.823305;5.078388;
+Esecuzione con P=2 (2 Nodi, 1 TPN)
+2;20000;7.828080;3.382708;
+Esecuzione con P=3 (3 Nodi, 1 TPN)
+3;20000;7.824769;2.508844;
+Esecuzione con P=4 (4 Nodi, 1 TPN)
+4;20000;7.825057;2.068172;
+Esecuzione con P=5 (5 Nodi, 1 TPN)
+5;20000;7.855334;1.840351;
+Esecuzione con P=6 (6 Nodi, 1 TPN)
+6;20000;7.820410;2.072987;
+Esecuzione con P=7 (7 Nodi, 1 TPN)
+7;20000;7.823928;2.203233;
+Esecuzione con P=8 (8 Nodi, 1 TPN)
+8;20000;7.825595;2.249431;
+Esecuzione con P=9 (9 Nodi, 1 TPN)
+9;20000;7.824626;2.046374;
+Esecuzione con P=10 (10 Nodi, 1 TPN)
+10;20000;7.821708;2.072825;
+Esecuzione con P=11 (11 Nodi, 1 TPN)
+11;20000;7.821153;2.117791;
+Esecuzione con P=12 (12 Nodi, 1 TPN)
+12;20000;7.817898;2.167574;
+Esecuzione con P=13 (13 Nodi, 1 TPN)
+13;20000;7.829356;2.049220;
+Esecuzione con P=14 (14 Nodi, 1 TPN)
+14;20000;7.824582;2.040093;
+Esecuzione con P=15 (15 Nodi, 1 TPN)
+15;20000;7.815111;2.027055;
+Esecuzione con P=16 (16 Nodi, 1 TPN)
+16;20000;7.824418;2.129811;
+Esecuzione con P=17 (17 Nodi, 1 TPN)
+17;20000;7.823774;2.018301;
+Esecuzione con P=18 (18 Nodi, 1 TPN)
+18;20000;7.827249;2.071553;
+Esecuzione con P=19 (19 Nodi, 1 TPN)
+19;20000;7.826075;2.060496;
+Esecuzione con P=20 (20 Nodi, 1 TPN)
+20;20000;7.826522;2.070149;
+Esecuzione con P=21 (21 Nodi, 1 TPN)
+21;20000;7.825600;2.060913;
+Esecuzione con P=22 (22 Nodi, 1 TPN)
+22;20000;7.823919;2.067175;
+Esecuzione con P=23 (23 Nodi, 1 TPN)
+23;20000;7.821051;2.077040;
+Esecuzione con P=24 (24 Nodi, 1 TPN)
+24;20000;7.824811;2.044138;
+Esecuzione con P=25 (25 Nodi, 1 TPN)
+25;20000;7.821016;2.027259;
+Test completati. Dati salvati
+[ldeluca1@login03 6]$

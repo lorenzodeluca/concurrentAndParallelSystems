@@ -11,7 +11,7 @@
 #SBATCH --mail-user=lorenzo@deluca.pro
 #SBATCH --job-name=LDLperformanceOptimization
 module load autoload intelmpi
-N_SIZE=8000
+N_SIZE=20000
 
 # ---------------------------------------------------------
 # FASE 1: 1 Nodo, Task per nodo (TPN) crescenti
@@ -28,12 +28,12 @@ done
 # FASE 2: Nodi crescenti (2 -> 10), TPN fisso a 48
 # ---------------------------------------------------------
 echo "Inizio Fase 2: Scalabilità inter-nodo..."
-for nodes in {2..10}
+for nodes in 5 10 20 30 40 50
 do
     total_tasks=$((nodes * 48))
     echo "Esecuzione con P=$total_tasks ($nodes Nodi, 48 TPN)"
     # srun -N $nodes distribuisce i task sui nodi richiesti
-    srun -N $nodes -n $total_tasks ./matrix_transformation $N_SIZE
+    srun -N $nodes -n $total_tasks ./matrix_trasformation $N_SIZE
 done
 
 echo "Test completati. Dati salvati"

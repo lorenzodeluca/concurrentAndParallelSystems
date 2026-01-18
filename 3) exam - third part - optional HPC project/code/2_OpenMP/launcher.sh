@@ -12,7 +12,7 @@
 
 for I in 12 24 48; do
   echo "Launching matrix_trasformation_omp  $I"
-  srun ./matrix_trasformation_omp $I
+  srun ./matrix_transformation_omp $I
 done
 
 

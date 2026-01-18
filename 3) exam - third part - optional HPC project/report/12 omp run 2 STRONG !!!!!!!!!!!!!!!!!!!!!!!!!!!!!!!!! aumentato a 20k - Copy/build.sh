@@ -1,0 +1,1 @@
+gcc -fopenmp matrix_transformation_omp.c

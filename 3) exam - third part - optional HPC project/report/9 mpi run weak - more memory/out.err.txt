@@ -1,0 +1,143 @@
+[ldeluca1@login03 6]$ cat job.err
+[r505n003:59748:0:59748] ib_mlx5_log.c:143  Remote access on mlx5_2:1/IB (synd 0x13 vend 0x88 hw_synd 0/0)
+[r505n003:59748:0:59748] ib_mlx5_log.c:143  RC QP 0x2da01 wqe[3]: RDMA_READ s-- [rva 0x2f012b040bc0 rkey 0x55fad] [va 0x2f005cce6400 len 749530304 lkey 0xf2f9a]
+slurmstepd: error: Detected 1 oom_kill event in StepId=18704610.9. Some of the step tasks have been OOM Killed.
+srun: error: r501n011: task 0: Out Of Memory
+srun: Terminating StepId=18704610.9
+srun: error: r501n013: task 1: Terminated
+srun: error: r512c03n04: task 15: Terminated
+srun: error: r507c02n02: task 12: Terminated
+srun: error: r502n003: task 3: Terminated
+srun: error: r507c06n02: task 13: Terminated
+srun: error: r506c04n01: task 10: Terminated
+srun: error: r512c03n01: task 14: Terminated
+srun: error: r513c01n04: task 17: Terminated
+srun: error: r506c04n02: task 11: Terminated
+srun: error: r513c01n02: task 16: Terminated
+srun: error: r504n004: task 7: Terminated
+srun: error: r505n005: task 9: Terminated
+srun: error: r503n006: task 5: Terminated
+srun: error: r504n001: task 6: Terminated
+srun: error: r502n002: task 2: Terminated
+srun: error: r503n005: task 4: Terminated
+srun: error: r505n003: task 8: Terminated
+srun: Force Terminated StepId=18704610.9
+srun: Step created for StepId=18704610.10
+slurmstepd: error: Detected 1 oom_kill event in StepId=18704610.10. Some of the step tasks have been OOM Killed.
+srun: error: r501n011: task 0: Out Of Memory
+srun: Terminating StepId=18704610.10
+srun: error: r512c03n04: task 15: Terminated
+srun: error: r502n003: task 3: Terminated
+srun: error: r512c03n01: task 14: Terminated
+srun: error: r507c02n02: task 12: Terminated
+srun: error: r506c04n01: task 10: Terminated
+srun: error: r501n013: task 1: Terminated
+srun: error: r507c06n02: task 13: Terminated
+srun: error: r513c01n04: task 17: Terminated
+srun: error: r504n004: task 7: Terminated
+srun: error: r503n005: task 4: Terminated
+srun: error: r514c04n01: task 18: Terminated
+srun: error: r514c04n04: task 19: Terminated
+srun: error: r505n005: task 9: Terminated
+srun: error: r513c01n02: task 16: Terminated
+srun: error: r502n002: task 2: Terminated
+srun: error: r503n006: task 5: Terminated
+srun: error: r504n001: task 6: Terminated
+srun: error: r506c04n02: task 11: Terminated
+srun: error: r505n003: task 8: Terminated
+srun: Force Terminated StepId=18704610.10
+slurmstepd: error: Detected 1 oom_kill event in StepId=18704610.11. Some of the step tasks have been OOM Killed.
+srun: error: r501n011: task 0: Out Of Memory
+srun: Terminating StepId=18704610.11
+srun: error: r515c01n02: task 20: Terminated
+srun: error: r501n013: task 1: Terminated
+srun: error: r506c04n01: task 10: Terminated
+srun: error: r502n003: task 3: Terminated
+srun: error: r513c01n04: task 17: Terminated
+srun: error: r512c03n01: task 14: Terminated
+srun: error: r512c03n04: task 15: Terminated
+srun: error: r507c02n02: task 12: Terminated
+srun: error: r513c01n02: task 16: Terminated
+srun: error: r504n004: task 7: Terminated
+srun: error: r503n005: task 4: Terminated
+srun: error: r503n006: task 5: Terminated
+srun: error: r502n002: task 2: Terminated
+srun: error: r514c04n01: task 18: Terminated
+srun: error: r504n001: task 6: Terminated
+srun: error: r514c04n04: task 19: Terminated
+srun: error: r506c04n02: task 11: Terminated
+srun: error: r505n005: task 9: Terminated
+srun: error: r505n003: task 8: Terminated
+srun: error: r507c06n02: task 13: Terminated
+srun: error: r515c01n04: task 21: Terminated
+srun: Force Terminated StepId=18704610.11
+srun: Step created for StepId=18704610.12
+Abort(604623361) on node 0 (rank 0 in comm 0): Fatal error in PMPI_Scatterv: Invalid buffer pointer, error stack:
+PMPI_Scatterv(399): MPI_Scatterv(sbuf=(nil), scnts=0xf8a600, displs=0xf84b20, MPI_DOUBLE, rbuf=0x154c96336010, rcount=96048000, MPI_DOUBLE, root=0, comm=MPI_COMM_WORLD) failed
+PMPI_Scatterv(293): Null buffer pointer
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+In: PMI_Abort(604623361, Fatal error in PMPI_Scatterv: Invalid buffer pointer, error stack:
+PMPI_Scatterv(399): MPI_Scatterv(sbuf=(nil), scnts=0xf8a600, displs=0xf84b20, MPI_DOUBLE, rbuf=0x154c96336010, rcount=96048000, MPI_DOUBLE, root=0, comm=MPI_COMM_WORLD) failed
+PMPI_Scatterv(293): Null buffer pointer)
+slurmstepd: error: *** STEP 18704610.12 ON r501n011 CANCELLED AT 2026-01-17T19:59:07 ***
+srun: error: r515c01n02: task 20: Killed
+srun: Terminating StepId=18704610.12
+srun: error: r501n013: task 1: Killed
+srun: error: r506c04n02: task 11: Killed
+srun: error: r519c01n04: task 23: Killed
+srun: error: r519c01n02: task 22: Killed
+srun: error: r503n005: task 4: Killed
+srun: error: r515c01n04: task 21: Killed
+srun: error: r512c03n04: task 15: Killed
+srun: error: r506c04n01: task 10: Killed
+srun: error: r502n003: task 3: Killed
+srun: error: r512c03n01: task 14: Killed
+srun: error: r513c01n04: task 17: Killed
+srun: error: r504n004: task 7: Killed
+srun: error: r507c06n02: task 13: Killed
+srun: error: r505n003: task 8: Killed
+srun: error: r513c01n02: task 16: Killed
+srun: error: r514c04n01: task 18: Killed
+srun: error: r514c04n04: task 19: Killed
+srun: error: r502n002: task 2: Killed
+srun: error: r505n005: task 9: Killed
+srun: error: r503n006: task 5: Killed
+srun: error: r501n011: task 0: Killed
+srun: error: r504n001: task 6: Killed
+srun: error: r507c02n02: task 12: Killed
+srun: Step created for StepId=18704610.13
+Abort(873058817) on node 0 (rank 0 in comm 0): Fatal error in PMPI_Scatterv: Invalid buffer pointer, error stack:
+PMPI_Scatterv(399): MPI_Scatterv(sbuf=(nil), scnts=0x19b4600, displs=0x19aeb20, MPI_DOUBLE, rbuf=0x14809c4ad010, rcount=100050000, MPI_DOUBLE, root=0, comm=MPI_COMM_WORLD) failed
+PMPI_Scatterv(293): Null buffer pointer
+In: PMI_Abort(873058817, Fatal error in PMPI_Scatterv: Invalid buffer pointer, error stack:
+PMPI_Scatterv(399): MPI_Scatterv(sbuf=(nil), scnts=0x19b4600, displs=0x19aeb20, MPI_DOUBLE, rbuf=0x14809c4ad010, rcount=100050000, MPI_DOUBLE, root=0, comm=MPI_COMM_WORLD) failed
+PMPI_Scatterv(293): Null buffer pointer)
+slurmstepd: error: *** STEP 18704610.13 ON r501n011 CANCELLED AT 2026-01-17T19:59:09 ***
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: r515c01n02: task 20: Killed
+srun: Terminating StepId=18704610.13
+srun: error: r507c06n02: task 13: Killed
+srun: error: r506c04n01: task 10: Killed
+srun: error: r513c01n02: task 16: Killed
+srun: error: r513c01n04: task 17: Killed
+srun: error: r512c03n04: task 15: Killed
+srun: error: r503n005: task 4: Killed
+srun: error: r502n003: task 3: Killed
+srun: error: r501n013: task 1: Killed
+srun: error: r506c04n02: task 11: Killed
+srun: error: r512c03n01: task 14: Killed
+srun: error: r519c01n02: task 22: Killed
+srun: error: r504n004: task 7: Killed
+srun: error: r519c01n04: task 23: Killed
+srun: error: r514c04n04: task 19: Killed
+srun: error: r503n006: task 5: Killed
+srun: error: r502n002: task 2: Killed
+srun: error: r504n001: task 6: Killed
+srun: error: r515c01n04: task 21: Killed
+srun: error: r501n011: task 0: Killed
+srun: error: r507c02n02: task 12: Killed
+srun: error: r505n003: task 8: Killed
+srun: error: r520c01n03: task 24: Killed
+srun: error: r505n005: task 9: Killed
+srun: error: r514c04n01: task 18: Killed
+[ldeluca1@login03 6]$

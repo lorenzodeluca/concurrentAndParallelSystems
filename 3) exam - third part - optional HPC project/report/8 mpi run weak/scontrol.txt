@@ -1,0 +1,30 @@
+[ldeluca1@login03 6]$ scontrol show job 18704554
+JobId=18704554 JobName=WeakScaling_N
+   UserId=ldeluca1(131852) GroupId=interactive(25200) MCS_label=N/A
+   Priority=181452 Nice=0 Account=tra25_inginfbo QOS=normal
+   JobState=COMPLETED Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:01:34 TimeLimit=00:10:00 TimeMin=N/A
+   SubmitTime=2026-01-17T19:49:10 EligibleTime=2026-01-17T19:49:10
+   AccrueTime=2026-01-17T19:49:10
+   StartTime=2026-01-17T19:49:11 EndTime=2026-01-17T19:50:45 Deadline=N/A
+   PreemptEligibleTime=2026-01-17T19:49:11 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-01-17T19:49:11 Scheduler=Main
+   Partition=g100_usr_prod AllocNode:Sid=login03:3729809
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=r501n[011,013],r502n[002-003],r503n[005-006],r504n[001,004],r505n[003,005],r506c04n[01-02],r507c02n02,r507c06n02,r512c03n[01,04],r513c01n[02,04],r514c04n[01,04],r515c01n[02,04],r519c01n[02,04],r520c01n03
+   BatchHost=r501n011
+   NumNodes=25 NumCPUs=25 NumTasks=25 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=25,mem=195000M,node=25,billing=25
+   AllocTRES=cpu=25,mem=195000M,node=25,billing=25
+   Socks/Node=* NtasksPerN:B:S:C=1:0:*:* CoreSpec=*
+   MinCPUsNode=1 MinMemoryCPU=7800M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/g100/home/userexternal/ldeluca1/6/launcher.sh
+   WorkDir=/g100/home/userexternal/ldeluca1/6
+   StdErr=/g100/home/userexternal/ldeluca1/6/job.err
+   StdIn=/dev/null
+   StdOut=/g100/home/userexternal/ldeluca1/6/job.out
+   Power=
+   MailUser=lorenzo@deluca.pro MailType=INVALID_DEPEND,BEGIN,END,FAIL,REQUEUE,STAGE_OUT

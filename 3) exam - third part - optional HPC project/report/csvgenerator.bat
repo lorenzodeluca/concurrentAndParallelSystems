@@ -1,0 +1,1 @@
+findstr ";" out.txt > out.csv

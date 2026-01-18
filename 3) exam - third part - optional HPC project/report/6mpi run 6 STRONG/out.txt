@@ -1,0 +1,26 @@
+[ldeluca1@login03 6]$ cat job.out
+Inizio Fase 1: Scalabilità intra-nodo...
+Esecuzione con P=1 (1 Nodo, 1 TPN)
+1;20000;8.013305;5.078388;
+Esecuzione con P=2 (1 Nodo, 2 TPN)
+2;20000;7.778090;3.558432;
+Esecuzione con P=4 (1 Nodo, 4 TPN)
+4;20000;7.798726;2.142523;
+Esecuzione con P=8 (1 Nodo, 8 TPN)
+8;20000;7.750064;2.509842;
+Esecuzione con P=12 (1 Nodo, 12 TPN)
+12;20000;7.746122;2.444991;
+Esecuzione con P=24 (1 Nodo, 24 TPN)
+24;20000;7.770815;2.338330;
+Esecuzione con P=48 (1 Nodo, 48 TPN)
+48;20000;8.237790;2.623835;
+Inizio Fase 2: Scalabilità inter-nodo...
+Esecuzione con P=240 (5 Nodi, 48 TPN)
+240;20000;8.244235;1.777194;
+Esecuzione con P=480 (10 Nodi, 48 TPN)
+480;20000;8.500649;2.207888;
+Esecuzione con P=960 (20 Nodi, 48 TPN)
+960;20000;8.214614;2.326510;
+Esecuzione con P=1200 (25 Nodi, 48 TPN)
+1200;20000;8.227144;3.063359;
+Test completati. Dati salvati

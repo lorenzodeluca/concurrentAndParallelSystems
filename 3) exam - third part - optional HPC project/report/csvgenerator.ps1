@@ -1,0 +1,1 @@
+Select-String ";" job.out | ForEach-Object { $_.Line } > out.csv

@@ -1,0 +1,4 @@
+[ldeluca1@login03 6]$ cat job.err
+srun: Step created for StepId=18704701.8
+srun: Step created for StepId=18704701.10
+[ldeluca1@login03 6]$

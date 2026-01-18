@@ -1,0 +1,31 @@
+[ldeluca1@login03 6]$ cat job.out
+Inizio test Weak Scaling: Carico costante per core...
+Esecuzione: P=1, N=4000 su 1 nodi (tpn=1)
+1;4000;0.311943;0.214880;
+Esecuzione: P=2, N=4000 su 2 nodi (tpn=1)
+2;4000;0.313928;0.138030;
+Esecuzione: P=4, N=8000 su 4 nodi (tpn=1)
+4;8000;1.251707;0.337959;
+Esecuzione: P=6, N=8000 su 6 nodi (tpn=1)
+6;8000;1.251660;0.336987;
+Esecuzione: P=8, N=8000 su 8 nodi (tpn=1)
+8;8000;1.252294;0.371787;
+Esecuzione: P=10, N=12000 su 10 nodi (tpn=1)
+10;12000;2.817369;0.773681;
+Esecuzione: P=12, N=12000 su 12 nodi (tpn=1)
+12;12000;2.817141;0.808176;
+Esecuzione: P=14, N=12000 su 14 nodi (tpn=1)
+14;12000;2.819383;0.764105;
+Esecuzione: P=16, N=16000 su 16 nodi (tpn=1)
+16;16000;5.005969;1.339671;
+Esecuzione: P=18, N=16000 su 18 nodi (tpn=1)
+18;16000;5.006005;1.351136;
+Esecuzione: P=20, N=16000 su 20 nodi (tpn=1)
+20;16000;5.006944;1.336039;
+Esecuzione: P=22, N=16000 su 22 nodi (tpn=1)
+22;16000;5.009426;1.341886;
+Esecuzione: P=24, N=16000 su 24 nodi (tpn=1)
+24;16000;5.008874;1.328215;
+Esecuzione: P=25, N=20000 su 25 nodi (tpn=1)
+25;20000;7.826125;2.062404;
+Test completati. Dati salvati

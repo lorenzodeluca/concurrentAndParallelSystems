@@ -1,0 +1,27 @@
+[ldeluca1@login03 6]$ cat job.out
+Inizio test Weak Scaling: righe per processo costanti...
+Esecuzione: P=1, N=2000 su 1 nodi (tpn=1)
+1;2000;0.078528;0.056065;
+Esecuzione: P=2, N=4000 su 2 nodi (tpn=1)
+2;4000;0.312454;0.151107;
+Esecuzione: P=4, N=8000 su 4 nodi (tpn=1)
+4;8000;1.253510;0.329579;
+Esecuzione: P=6, N=12000 su 6 nodi (tpn=1)
+6;12000;2.817623;0.751394;
+Esecuzione: P=8, N=16000 su 8 nodi (tpn=1)
+8;16000;5.008628;1.469798;
+Esecuzione: P=10, N=20000 su 10 nodi (tpn=1)
+10;20000;7.818726;2.116748;
+Esecuzione: P=12, N=24000 su 12 nodi (tpn=1)
+12;24000;11.273237;3.158726;
+Esecuzione: P=14, N=28000 su 14 nodi (tpn=1)
+14;28000;15.310838;3.984656;
+Esecuzione: P=16, N=32000 su 16 nodi (tpn=1)
+16;32000;20.025305;5.433705;
+Esecuzione: P=18, N=36000 su 18 nodi (tpn=1)
+Esecuzione: P=20, N=40000 su 20 nodi (tpn=1)
+Esecuzione: P=22, N=44000 su 22 nodi (tpn=1)
+Esecuzione: P=24, N=48000 su 24 nodi (tpn=1)
+Esecuzione: P=25, N=50000 su 25 nodi (tpn=1)
+Test completati. Dati salvati
+[ldeluca1@login03 6]$

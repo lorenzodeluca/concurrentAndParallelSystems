@@ -1,0 +1,59 @@
+[ldeluca1@login03 6]$ cat job.err
+srun: Step created for StepId=18704554.8
+srun: Step created for StepId=18704554.11
+slurmstepd: error: Detected 1 oom_kill event in StepId=18704554.12. Some of the step tasks have been OOM Killed.
+srun: error: r501n011: task 0: Out Of Memory
+srun: Terminating StepId=18704554.12
+srun: error: r515c01n02: task 20: Terminated
+srun: error: r506c04n01: task 10: Terminated
+srun: error: r512c03n01: task 14: Terminated
+srun: error: r501n013: task 1: Terminated
+srun: error: r502n003: task 3: Terminated
+srun: error: r519c01n04: task 23: Terminated
+srun: error: r519c01n02: task 22: Terminated
+srun: error: r504n004: task 7: Terminated
+srun: error: r512c03n04: task 15: Terminated
+srun: error: r504n001: task 6: Terminated
+srun: error: r503n005: task 4: Terminated
+srun: error: r507c02n02: task 12: Terminated
+srun: error: r506c04n02: task 11: Terminated
+srun: error: r515c01n04: task 21: Terminated
+srun: error: r502n002: task 2: Terminated
+srun: error: r513c01n02: task 16: Terminated
+srun: error: r503n006: task 5: Terminated
+srun: error: r507c06n02: task 13: Terminated
+srun: error: r505n005: task 9: Terminated
+srun: error: r505n003: task 8: Terminated
+srun: error: r514c04n04: task 19: Terminated
+srun: error: r514c04n01: task 18: Terminated
+srun: error: r513c01n04: task 17: Terminated
+srun: Force Terminated StepId=18704554.12
+slurmstepd: error: Detected 1 oom_kill event in StepId=18704554.13. Some of the step tasks have been OOM Killed.
+srun: error: r501n011: task 0: Out Of Memory
+srun: Terminating StepId=18704554.13
+srun: error: r519c01n02: task 22: Terminated
+srun: error: r515c01n04: task 21: Terminated
+srun: error: r515c01n02: task 20: Terminated
+srun: error: r501n013: task 1: Terminated
+srun: error: r507c02n02: task 12: Terminated
+srun: error: r512c03n01: task 14: Terminated
+srun: error: r507c06n02: task 13: Terminated
+srun: error: r512c03n04: task 15: Terminated
+srun: error: r513c01n04: task 17: Terminated
+srun: error: r514c04n01: task 18: Terminated
+srun: error: r504n004: task 7: Terminated
+srun: error: r514c04n04: task 19: Terminated
+srun: error: r519c01n04: task 23: Terminated
+srun: error: r504n001: task 6: Terminated
+srun: error: r502n003: task 3: Terminated
+srun: error: r505n003: task 8: Terminated
+srun: error: r503n005: task 4: Terminated
+srun: error: r506c04n01: task 10: Terminated
+srun: error: r505n005: task 9: Terminated
+srun: error: r503n006: task 5: Terminated
+srun: error: r506c04n02: task 11: Terminated
+srun: error: r520c01n03: task 24: Terminated
+srun: error: r513c01n02: task 16: Terminated
+srun: error: r502n002: task 2: Terminated
+srun: Force Terminated StepId=18704554.13
+[ldeluca1@login03 6]$
