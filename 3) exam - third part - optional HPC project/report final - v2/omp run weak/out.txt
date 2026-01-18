@@ -1,0 +1,30 @@
+[ldeluca1@login03 10]$ cat job.out
+Inizio test weak Scaling OpenMP (N=)...
+Esecuzione con P=1
+1;2000;0.039429;0.186552;
+Esecuzione: P=4, N=4000 su 1 nodo (tpn=1)
+4;4000;0.157891;0.189878;
+Esecuzione: P=8, N=5657 su 1 nodo (tpn=1)
+8;5657;0.319039;0.187418;
+Esecuzione: P=12, N=6928 su 1 nodo (tpn=1)
+12;6928;0.480309;0.190065;
+Esecuzione: P=16, N=8000 su 1 nodo (tpn=1)
+16;8000;0.640143;0.188325;
+Esecuzione: P=20, N=8944 su 1 nodo (tpn=1)
+20;8944;0.800165;0.188221;
+Esecuzione: P=24, N=9798 su 1 nodo (tpn=1)
+24;9798;0.960571;0.191021;
+Esecuzione: P=28, N=10583 su 1 nodo (tpn=1)
+28;10583;1.125002;0.191592;
+Esecuzione: P=32, N=11314 su 1 nodo (tpn=1)
+32;11314;1.284721;0.191323;
+Esecuzione: P=36, N=12000 su 1 nodo (tpn=1)
+36;12000;1.446366;0.191788;
+Esecuzione: P=40, N=12649 su 1 nodo (tpn=1)
+40;12649;1.606079;0.192055;
+Esecuzione: P=44, N=13266 su 1 nodo (tpn=1)
+44;13266;1.768412;0.192686;
+Esecuzione: P=48, N=13856 su 1 nodo (tpn=1)
+48;13856;1.929925;0.195418;
+Test completati. Dati salvati
+[ldeluca1@login03 10]$

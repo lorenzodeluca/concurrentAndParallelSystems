@@ -1,0 +1,30 @@
+[ldeluca1@login03 omp]$ scontrol show job 18705763
+JobId=18705763 JobName=OMP_Strong
+   UserId=ldeluca1(131852) GroupId=interactive(25200) MCS_label=N/A
+   Priority=142362 Nice=0 Account=tra25_inginfbo QOS=normal
+   JobState=COMPLETED Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:01:29 TimeLimit=00:10:00 TimeMin=N/A
+   SubmitTime=2026-01-17T23:31:03 EligibleTime=2026-01-17T23:31:03
+   AccrueTime=2026-01-17T23:31:03
+   StartTime=2026-01-17T23:31:07 EndTime=2026-01-17T23:32:36 Deadline=N/A
+   PreemptEligibleTime=2026-01-17T23:31:07 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-01-17T23:31:07 Scheduler=Main
+   Partition=g100_usr_prod AllocNode:Sid=login03:4168693
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=r506c02n02
+   BatchHost=r506c02n02
+   NumNodes=1 NumCPUs=48 NumTasks=1 CPUs/Task=48 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=48,mem=374400M,node=1,billing=48
+   AllocTRES=cpu=48,mem=374400M,node=1,billing=48
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=48 MinMemoryCPU=7800M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/g100/home/userexternal/ldeluca1/omp/launcher.sh
+   WorkDir=/g100/home/userexternal/ldeluca1/omp
+   StdErr=/g100/home/userexternal/ldeluca1/omp/job.err
+   StdIn=/dev/null
+   StdOut=/g100/home/userexternal/ldeluca1/omp/job.out
+   Power=
+   TresPerTask=cpu:48
