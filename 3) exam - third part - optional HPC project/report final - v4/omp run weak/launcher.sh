@@ -8,7 +8,7 @@
 #SBATCH -o job.out
 #SBATCH -e job.err
 #SBATCH --time=00:10:00
-#SBATCH --job-name=OMP_Strong
+#SBATCH --job-name=OMP_Weak
 
 N_BASE=2000   # righe per processo
 
