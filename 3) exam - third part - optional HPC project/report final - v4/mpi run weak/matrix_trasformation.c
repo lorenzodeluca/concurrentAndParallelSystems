@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
 
         ///////// --- SCATTER/GATHER preparation---
 
-        //scatter of the rows of A in blocks of N/P rows + 1 overlap row for each block
+        //scatter of the rows of A in blocks of N/P rows + 1-2 overlap row for each block
         // sendcounts[r] - > integer array (of length group size) specifying the number of elements to send to each processor 
         // displs[r] -> where the data for the rank r process starts
         // local_rows -> how many rows the process has
