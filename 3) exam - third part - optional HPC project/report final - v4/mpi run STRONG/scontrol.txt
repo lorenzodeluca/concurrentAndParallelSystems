@@ -1,0 +1,30 @@
+[ldeluca1@login03 ~]$ scontrol show job 18706272
+JobId=18706272 JobName=LDLperformanceOptimization
+   UserId=ldeluca1(131852) GroupId=interactive(25200) MCS_label=N/A
+   Priority=142439 Nice=0 Account=tra25_inginfbo QOS=normal
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=0 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:02:39 TimeLimit=00:10:00 TimeMin=N/A
+   SubmitTime=2026-01-18T01:53:23 EligibleTime=2026-01-18T01:53:23
+   AccrueTime=2026-01-18T01:53:23
+   StartTime=2026-01-18T01:53:24 EndTime=2026-01-18T02:03:24 Deadline=N/A
+   PreemptEligibleTime=2026-01-18T01:53:24 PreemptTime=None
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2026-01-18T01:53:24 Scheduler=Main
+   Partition=g100_usr_prod AllocNode:Sid=login03:4168693
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=r506c01n01
+   BatchHost=r506c01n01
+   NumNodes=1 NumCPUs=48 NumTasks=48 CPUs/Task=1 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=48,mem=374400M,node=1,billing=48
+   AllocTRES=cpu=48,mem=374400M,node=1,billing=48
+   Socks/Node=* NtasksPerN:B:S:C=48:0:*:* CoreSpec=*
+   MinCPUsNode=48 MinMemoryCPU=7800M MinTmpDiskNode=0
+   Features=(null) DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/g100/home/userexternal/ldeluca1/mpi/launcher.sh
+   WorkDir=/g100/home/userexternal/ldeluca1/mpi
+   StdErr=/g100/home/userexternal/ldeluca1/mpi/job.err
+   StdIn=/dev/null
+   StdOut=/g100/home/userexternal/ldeluca1/mpi/job.out
+   Power=
+   MailUser=lorenzo@deluca.pro MailType=INVALID_DEPEND,BEGIN,END,FAIL,REQUEUE,STAGE_OUT
