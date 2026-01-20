@@ -23,7 +23,6 @@ for p in $(seq 4 4 48)
 do
     echo "Esecuzione con P=$p"
     # Lanciamo il programma passando P come primo argomento
-    # Usiamo 'export OMP_NUM_THREADS' per sicurezza, anche se il tuo codice usa argv[1]
     ./matrix_transformation_omp $p $N_SIZE
 done
 

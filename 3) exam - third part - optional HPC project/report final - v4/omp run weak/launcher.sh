@@ -26,7 +26,6 @@ do
 
     echo "Esecuzione: P=$p, N=$N su 1 nodo (tpn=1)"
     # Lanciamo il programma passando P come primo argomento
-    # Usiamo 'export OMP_NUM_THREADS' per sicurezza, anche se il tuo codice usa argv[1]
     ./matrix_transformation_omp $p $N
 done
 
