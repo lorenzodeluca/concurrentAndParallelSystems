@@ -1,0 +1,1 @@
+Select-String ";" out.txt | ForEach-Object { $_.Line } > out.csv

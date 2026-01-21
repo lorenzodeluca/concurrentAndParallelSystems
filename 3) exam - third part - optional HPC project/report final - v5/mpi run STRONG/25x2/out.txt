@@ -1,0 +1,3 @@
+Esecuzione con P=50 (25 Nodi, 2 TPN)
+2;20000;7.759078;3.047432;
+Test completati. Dati salvati
