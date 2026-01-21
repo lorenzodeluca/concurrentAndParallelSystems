@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
 	time_seq_end = omp_get_wtime();
     time_paral_begin = omp_get_wtime(); 
 	
-    # pragma omp parallel  num_threads(P) shared(A,R) private(my_rank) firstprivate(P) 
+    # pragma omp parallel  num_threads(P) shared(A,R) private(my_rank)
 	{   
 		my_rank=omp_get_thread_num();   
         //printf("thread %d / %d started...\n", my_rank, P);
